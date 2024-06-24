@@ -1,0 +1,21 @@
+﻿{
+    "lastRun": null,
+    "controllerURL": "http://master-saas-controller.e2e.appd-test.com:8090",
+    "account": "e2e-customer",
+    "apiClient": "testExtension",
+    "apiClientSecret": "12ed3884-3a5c-4a3b-86a5-098db63ed0dc",
+    "application": "Infrastructure-only",
+    "tier": "InfrastructureOnly-Windows",
+    "node": "",
+    "EventLogPaths": [
+        "Application",
+        "System",
+        "Dotnet"
+    ],
+    "EventSources": [],
+    "EventIds": [],
+    "EventLogEntryTypes": [],
+    "EventLogMessageFilters": [],
+    "ExcludedEventIDs": [],
+    "MaxEventsPerRun": 100
+}

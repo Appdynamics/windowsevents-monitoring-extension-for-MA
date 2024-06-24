@@ -1,2 +1,56 @@
-# windowsevents-monitoring-extension-for-MA
-Machine agent extension to monitor and report on Windows Events 
+# Windows Events Monitoring Extension
+
+The Windows Events Monitoring Extension allows the Machine Agent to gather events from Windows machines.
+
+## Contents
+
+The contents of this repository should be placed within the `/monitors` directory of the Machine Agent. The `config.json` file contains a sample configuration detailing how to configure the extension to connect to your controller and specify which event IDs to collect.
+
+## Prerequisites
+
+- AppDynamics Machine Agent
+- PowerShell 5.x or 7.x installed
+
+## Installation
+
+1. Download and unzip the extension files.
+2. Copy all files into a new folder within the `/monitors` directory of the Machine Agent.
+
+## Upgrade
+
+1. Replace the existing files with the new ones in the appropriate subfolder within the `/monitors` directory of the Machine Agent.
+2. Restart the Machine Agent.
+
+## Configuration
+
+The `config.json` file is used to configure the Windows Events Monitoring Extension. You must restart the Machine Agent after modifying the `config.json` file. The following settings are available:
+
+- `lastRun`: Used internally to track the last run time. Initially set to `null`. Example: `"lastRun": 1617184000`
+- `controllerURL`: The URL of the AppDynamics controller. Example: `"controllerURL": "http://appdynamics-controller.example.com:8090"`
+- `account`: Your AppDynamics account name. Example: `"account": "customer1"`
+- `apiClient`: The API client name for authentication. Example: `"apiClient": "testExtension"`
+- `apiClientSecret`: The API client secret for authentication. Keep this confidential. Example: `"apiClientSecret": "************************************"`
+- `application`: The application name in AppDynamics. Example: `"application": "Infrastructure-only"`
+- `tier`: The tier name in AppDynamics. Example: `"tier": "InfrastructureOnly-Windows"`
+- `node`: The node name in AppDynamics. Can be left empty. Example: `"node": "Node-01"`
+- `EventLogPaths`: Array of Windows Event Log paths to monitor. This field cannot be left empty. Example: `"EventLogPaths": ["Application", "System", "Security"]`
+- `EventSources`: Array of event sources to filter by. Leave empty for all sources. Example: `"EventSources": ["MyAppSource", "AnotherSource"]`
+- `EventIds`: Array of event IDs to filter by. Leave empty for all IDs. Example: `"EventIds": [1000, 1001, 1002]`
+- `EventLogEntryTypes`: Array of event log entry types to filter by. Leave empty if not needed. Example: `"EventLogEntryTypes": ["Error", "Warning"]`
+- `EventLogMessageFilters`: Array of strings to filter event messages by. Leave empty if not needed. Example: `"EventLogMessageFilters": ["specific error", "certain warning"]`
+- `ExcludedEventIDs`: Array of event IDs to exclude from monitoring. These event IDs will not be monitored. Example: `"ExcludedEventIDs": [5000, 5001]`
+- `MaxEventsPerRun`: Maximum number of events to collect per run. Example: `"MaxEventsPerRun": 50`
+
+## Release Notes
+
+### 1.0.0
+
+- Initial release.
+- Support for gathering events by ID and Log.
+- Allows filtering events in the controller by custom type 'WindowsEventLogMonitor' and custom property 'EventID'.
+- Aggregates messages and other details into the description of the event.
+- Support and tested for PowerShell 5.x and 7.x.
+
+## Notice and Disclaimer
+
+All Extensions published by AppDynamics are governed by the Apache License v2 and are excluded from the definition of covered software under any agreement between AppDynamics and the User governing AppDynamics Pro Edition, Test & Dev Edition, or any other Editions.
