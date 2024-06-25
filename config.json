@@ -1,16 +1,14 @@
 ﻿{
     "lastRun": null,
-    "controllerURL": "http://master-saas-controller.e2e.appd-test.com:8090",
+    "controllerURL": "http://demo.appdynamics.com:8090",
     "account": "e2e-customer",
-    "apiClient": "testExtension",
+    "apiClient": "testApiClient",
     "apiClientSecret": "12ed3884-3a5c-4a3b-86a5-098db63ed0dc",
-    "application": "Infrastructure-only",
-    "tier": "InfrastructureOnly-Windows",
+    "application": "Windows-App",
+    "tier": "Tier1",
     "node": "",
     "EventLogPaths": [
-        "Application",
-        "System",
-        "Dotnet"
+        "Application"
     ],
     "EventSources": [],
     "EventIds": [],

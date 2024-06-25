@@ -21,6 +21,18 @@ The contents of this repository should be placed within the `/monitors` director
 1. Replace the existing files with the new ones in the appropriate subfolder within the `/monitors` directory of the Machine Agent.
 2. Restart the Machine Agent.
 
+## Creating an API Client
+
+Before configuring the extension, you need to create an API client in the AppDynamics Controller with the appropriate permissions.
+
+1. Log in to your AppDynamics Controller.
+2. Navigate to Settings -> Administration -> API Clients.
+3. Click Create API Client.
+4. Enter a name for the API client, such as WindowsEventsMonitorClient.
+5. Generate and securely store the API client secret. You will not be able to retrieve it later.
+6. Assign the necessary roles or permissions to the API client. At a minimum, the client will need read access to the relevant application and write access to custom metrics.
+7. Save the API client.
+
 ## Configuration
 
 The `config.json` file is used to configure the Windows Events Monitoring Extension. The following settings are available:
