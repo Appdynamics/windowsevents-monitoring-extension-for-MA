@@ -13,8 +13,10 @@ The contents of this repository should be placed within the `/monitors` director
 
 ## Installation
 
-1. Download and unzip the extension files.
-2. Copy all files into a new folder within the `/monitors` directory of the Machine Agent.
+1. Download the ZIP file of the "windowsevents-monitoring-extension-for-MA" repository from the repository's main page on GitHub.
+2. Unzip the downloaded file and move the extracted folder into  the `/monitors` directory of the Machine Agent.
+3. Configure the extension by modifying the config.json file present inside the extracted folder.
+4. Restart the Machine Agent.
 
 ## Upgrade
 
@@ -52,6 +54,11 @@ The `config.json` file is used to configure the Windows Events Monitoring Extens
 - `EventLogMessageFilters`: Array of strings to filter event messages by. Leave empty if not needed. Example: `"EventLogMessageFilters": ["specific error", "certain warning"]`
 - `ExcludedEventIDs`: Array of event IDs to exclude from monitoring. These event IDs will not be monitored. Example: `"ExcludedEventIDs": [5000, 5001]`
 - `MaxEventsPerRun`: Maximum number of events to collect per run. Example: `"MaxEventsPerRun": 50`
+
+## Custom Event Type
+
+The extension reports the gathered Windows Event Logs to AppDynamics as custom events. These custom events will have the type `WindowsEventLogMonitor`. This allows you to easily filter and identify the events collected by this extension within the AppDynamics Controller.
+
 
 ## Release Notes
 
