@@ -23,7 +23,7 @@ The contents of this repository should be placed within the `/monitors` director
 
 ## Configuration
 
-The `config.json` file is used to configure the Windows Events Monitoring Extension. You must restart the Machine Agent after modifying the `config.json` file. The following settings are available:
+The `config.json` file is used to configure the Windows Events Monitoring Extension. The following settings are available:
 
 - `lastRun`: Used internally to track the last run time. Initially set to `null`. Example: `"lastRun": 1617184000`
 - `controllerURL`: The URL of the AppDynamics controller. Example: `"controllerURL": "http://appdynamics-controller.example.com:8090"`
