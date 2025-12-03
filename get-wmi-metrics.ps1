@@ -1,4 +1,8 @@
-Write-Host "Script started."
+function Log([string] $msg) {
+    Write-Host "[WindowsEvents] $msg"
+}
+
+Log "Started Collecting Events"
 
 function Cleanup-Resources
 {
@@ -96,14 +100,10 @@ foreach ($prop in $requiredConfigProperties)
     }
 }
 
-# Determine if the monitor has run and set the "Last Run" time.
-# Default to 5 minutes ago
-if ($Config.lastRun -eq $null)
-{
+# Determine if the monitor has run and set the "Last Run" time. Default to 5 minutes ago
+if ($Config.lastRun -eq $null) {
     $Config.lastRun = $FiveMinutesAgo
-}
-else
-{
+} else {
     $Config.lastRun = [math]::Max($Config.lastRun, $FiveMinutesAgo)
 }
 
@@ -134,21 +134,21 @@ try
         }
     }
 
-    # Gather the events run since the last run using the correct command available (PowerShell 5.x vs 7.x)
+    # Gather the events run since the last run
     $FoundEvents = @()
-    if (Get-Command Get-EventLog -ErrorAction SilentlyContinue)
-    {
-        $FoundEvents = (&"$Location\get-winevent.ps1" -Config $Config -LastRun $LastRun -Logs $Logs -EventIDs $EventIDs)
-        Check-Timeout
-    }
-
+    $FoundEvents = (&"$Location\get-winevent.ps1" -Config $Config -LastRun $LastRun -Logs $Logs -EventIDs $EventIDs)
+    Check-Timeout
 
     # Limit the number of events to the maximum set in the configuration
     $FoundEvents = $FoundEvents | Select-Object -First $Config.MaxEventsPerRun
+    Log "events=$($FoundEvents.Count)"
 
     if ($FoundEvents.Count -gt 0)
     {
         $Token = (&"$Location\get-oauth-token.ps1" -ControllerUrl $Config.controllerURL -AccountName $Config.account -ApiClient $Config.apiClient -ApiSecret $Config.apiClientSecret)
+        if (-not $Token) {
+            throw "OAuth token missing; aborting run"
+        }
 
         Check-Timeout
 
@@ -251,6 +251,8 @@ try
         # Close the runspace pool
         $RunspacePool.Close()
         $RunspacePool.Dispose()
+
+        Log "posted=$($FoundEvents.Count)"
     }
 
 }
@@ -263,4 +265,4 @@ finally
 # Write Timestamp to lastRun config property
 $Config.lastRun = Get-Date -UFormat '%s'
 $Config | ConvertTo-Json -Depth 100 | Out-File $Location"\config.json"
-Write-Host "Script completed successfully."
+Log "Completed Collecting Events"
